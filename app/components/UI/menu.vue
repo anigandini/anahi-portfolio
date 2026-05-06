@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav class="title">
             <!-- Desktop -->
             <ul class="hidden md:flex gap-12 uppercase">
             <li v-for="item in links" :key="item.href">
