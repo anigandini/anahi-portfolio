@@ -3,7 +3,7 @@
         <div class="ellipses-layer">
             <div v-for="e in ELLIPSE_CONFIGS" :key="e.id" :ref="el => { if (el) ellipseRefs[e.id] = el }" class="ellipse" :style="{ background: e.color }" />
         </div>
-        <main class="w-full h-screen px-4 flex flex-col justify-center items-center gap-20 z-10">
+        <main class="w-full h-screen px-4 flex flex-col justify-center items-center gap-12 z-10">
             <h1 class="hero-title title text-3xl md:text-6xl uppercase">
                 <span
                     v-for="(letter, i) in titleLetters"
@@ -14,7 +14,7 @@
                     >{{ letter === ' ' ? '\u00A0' : letter }}
                 </span>
             </h1>
-            <h2 class="subtitle text-2xl md:text-3xl text-center">
+            <h2 ref="subtitleRef" class="subtitle text-2xl md:text-3xl text-center opacity-0">
                 Crafting interactive and visually engaging web experiences
                 that bring your brand to life online
             </h2>
@@ -31,11 +31,13 @@ const titleText = "Front end Developer"
 const titleLetters = [...titleText]
 const letterRefs  = ref<HTMLElement[]>([])
 const ellipseRefs = ref<HTMLElement[]>([])
+const subtitleRef = ref<HTMLElement>(null)
+const navbarRef = inject<Ref<HTMLElement>>('navbarRef')
 
 let animation: ReturnType<typeof heroAnimation>
 
 onMounted(() => {
-  animation = heroAnimation($gsap, { letterRefs, ellipseRefs })
+  animation = heroAnimation($gsap, { letterRefs, ellipseRefs, subtitleRef, navbarRef })
 })
 
 onUnmounted(() => {

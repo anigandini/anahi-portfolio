@@ -13,6 +13,8 @@ export interface EllipseConfig {
 interface HeroAnimationRefs {
   letterRefs:  Ref<HTMLElement[]>,
   ellipseRefs: Ref<HTMLElement[]>,
+  subtitleRef: Ref<HTMLElement>
+  navbarRef:   Ref<HTMLElement>
 }
 
 type Pose = {
@@ -39,7 +41,7 @@ export const ELLIPSE_CONFIGS: EllipseConfig[] = Array.from(
 // HERO ORCHESTRATOR // --------------------------------------------------------------
 
 export const heroAnimation = (gsap: GSAP, refs: HeroAnimationRefs) => {
-    const textTl = animateText(gsap, refs.letterRefs)
+    const textTl = animateText(gsap, refs.letterRefs, refs.subtitleRef, refs.navbarRef)
     const bg = animateBackground(gsap, refs.ellipseRefs)
     
     return {
@@ -52,18 +54,28 @@ export const heroAnimation = (gsap: GSAP, refs: HeroAnimationRefs) => {
 
 // TEXT ANIMATION // ------------------------------------------------------------------
 
-const animateText = (gsap: GSAP, letterRefs: Ref<HTMLElement[]>) => {
+const animateText = (
+  gsap: GSAP, 
+  letterRefs: Ref<HTMLElement[]>,
+  subtitleRef: Ref<HTMLElement | null>,
+  navbarRef:   Ref<HTMLElement | null>
+  ) => {
   const letters  = letterRefs.value.filter(Boolean)
   const shuffled = gsap.utils.shuffle([...letters])
   const cycle = useColorCycle()
 
-  return gsap.timeline({ delay: 0.2 })
+  return gsap.timeline({ delay: 0.4 })
     .to(shuffled, {
       color: () => cycle.next(),
       opacity: 1,
       duration: 0.01,
       stagger:  0.09,
     })
+    .to(subtitleRef.value, {
+      opacity:  1,
+      duration: 0.8,
+      ease:     'power2.inOut',
+    }, 0)
     .to(gsap.utils.shuffle([...letters]), {
       color:    '#111111',
       duration: 0.5,
@@ -71,6 +83,11 @@ const animateText = (gsap: GSAP, letterRefs: Ref<HTMLElement[]>) => {
       ease:    'power2.out',
       delay:    0.2,
     }, "-=0.5")
+    .to(navbarRef.value, {
+      opacity:  1,
+      duration: 0.5,
+      ease:     'power2.out',
+    })
     
 }
 
