@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar container flex flex-row p-4 items-center justify-between">
+    <div class="navbar container fixed flex flex-row p-4 items-center justify-between">
         <figure class="logo">
             <img src="/logo.png" alt="Logo" class="h-12" />
         </figure>
