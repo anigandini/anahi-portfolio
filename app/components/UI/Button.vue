@@ -54,7 +54,6 @@ const onClick = (e: MouseEvent) => {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Variants */
 .primary {
   background: #111111;
   color: #ffffff;
@@ -64,24 +63,22 @@ const onClick = (e: MouseEvent) => {
   background: var(--color-primary);
 }
 
-.secondary {
-  background: transparent;
-  border: 1px solid #111111;
-  color: #111111;
+.secondary:hover {
+  background: #fff;
+  color: var(--color-primary);
 }
 
-/* Full width option */
+
 .full {
   width: 100%;
 }
 
-/* Hover */
+
 .base-button:hover {
   transform: translateY(-1px);
   opacity: 0.9;
 }
 
-/* Active */
 .base-button:active {
   transform: translateY(0px);
 }
